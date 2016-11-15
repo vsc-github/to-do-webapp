@@ -32,6 +32,7 @@ module.exports = function(passport) {
           newUser.save(function(err) {
             if (err)
               throw err;
+            console.log("New user created!");
             return done(null, newUser);
           });
         }
