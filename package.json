@@ -1,0 +1,26 @@
+{
+  "name": "to-do-webapp",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mastercod3r/to-do-webapp.git"
+  },
+  "keywords": [
+    "todo",
+    "mean",
+    "angular",
+    "mongo",
+    "node"
+  ],
+  "author": "vishwas singh chouhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mastercod3r/to-do-webapp/issues"
+  },
+  "homepage": "https://github.com/mastercod3r/to-do-webapp#readme"
+}
