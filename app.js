@@ -14,6 +14,7 @@ var session = require('express-session');
 var port = process.env.PORT || 3000;
 
 var routes = require('./routes/index');
+var todos = require('./routes/todo');
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
@@ -38,6 +39,7 @@ app.use(flash());
 require('./config/passport')(passport);
 
 app.use('/', routes);
+app.use('/todo', todos);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
