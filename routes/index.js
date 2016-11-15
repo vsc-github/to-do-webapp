@@ -22,16 +22,16 @@ router.post('/login', passport.authenticate('local-login', {
 
 router.post('/add', function(req, res, next) {
   var todo = new Todo();
-          todo.item.title = "Hi this is the title";
-          todo.item.userid = "batty.wayn3@gmail.com";
-          todo.item.location = "CP";
-          todo.item.date = "14-11-2016";
-          todo.item.time = "12:00 PM";
+          todo.item.title = req.body.title;
+          todo.item.userid = req.body.userid;
+          todo.item.location = req.body.location;
+          todo.item.date = req.body.date;
+          todo.item.time = req.body.time;
           todo.save(function(err) {
             if (err)
               throw err;
             console.log("New todo item created!");
-            return done(null, todo);
+            res.send({success:true});
           });
   //res.send({ status: 'working!' });
 })
