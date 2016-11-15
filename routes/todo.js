@@ -20,11 +20,24 @@ router.post('/add', function(req, res, next) {
 })
 
 router.post('/all',function(req,res,next){
-  console.log("/all",req);
   Todo.find({ 'item.userid': req.body.userid }, function (err, person) {
   if (err) return handleError(err);
   res.send({items:person});
 })
 })
+
+router.post('/delete',function(req,res,next){
+
+  Todo.find({'_id': req.body.id}, function (err, old) {
+  if (err) return handleError(err);
+
+    Todo.findOneAndUpdate({'_id': req.body.id},{$set:{'item.active':!old[0].item.active}},{new: true},function (err) {
+      if (err) return handleError(err);
+      res.send({success:true});
+    })
+
+  })
+
+});
 
 module.exports = router;
