@@ -11,6 +11,7 @@ router.post('/login', function(req, res, next) {
        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ success:false, message:info }));
       }else { 
+        
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ success:true, user: user }));
       }
@@ -23,18 +24,16 @@ router.post('/signup', function(req, res, next) {
 
       if (err) { return next(err); }
 
-      if (!user) { return res.redirect('/login'); }     //send failed request reponse here
+      if (!user) {
+          res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ success:false, message:info }));
+       }
       else { 
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ user: user }));
       }
 
   })(req, res, next);
-});
-
-router.get('/reminders', isLoggedIn, function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ user: req.user }));
 });
 
 function isLoggedIn(req, res, next) {

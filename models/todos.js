@@ -6,9 +6,9 @@ var todoSchema = mongoose.Schema({
   	userid: String,
     title: String,
     location: String,
-    date: String,
+    date: Date,
     time: String,
-    active: Boolean,
+    active: {type:Boolean,default:1},
   }
 });
 

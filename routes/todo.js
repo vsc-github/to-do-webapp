@@ -19,9 +19,9 @@ router.post('/add', function(req, res, next) {
           });
 })
 
-router.get('/all',function(req,res,next){
+router.post('/all',function(req,res,next){
   console.log("/all",req);
-  Todo.find({ 'item.userid': 'batty.wayn3@gmail.com' }, function (err, person) {
+  Todo.find({ 'item.userid': req.body.userid }, function (err, person) {
   if (err) return handleError(err);
   res.send({items:person});
 })
