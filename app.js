@@ -4,14 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 var session = require('express-session');
-var routes = require('./routes/index')
+
 var port = process.env.PORT || 3000;
 
+var routes = require('./routes/index');
+
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
 
 var app = express();
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
