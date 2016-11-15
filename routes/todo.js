@@ -40,4 +40,20 @@ router.post('/delete',function(req,res,next){
 
 });
 
+router.post('/snooze',function(req,res,next){
+
+  Todo.find({'_id': req.body.id}, function (err, old) {
+  if (err) return handleError(err);
+
+  var nextDay = old[0].item.date.setDate(old[0].item.date.getDate() + 1);
+
+    Todo.findOneAndUpdate({'_id': req.body.id},{$set:{'item.date':nextDay}},{new: true},function (err) {
+      if (err) return handleError(err);
+      res.send({success:true});
+    })
+
+  })
+
+});
+
 module.exports = router;
