@@ -1,12 +1,17 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
-var nodemailer = require('../helpers/nodemailer');
+
 var Todo = require('../models/todos');
+
+var nodemailer = require('../helpers/nodemailer');
+var schedule = require('node-schedule');
 
 router.post('/add', function(req, res, next) {
   var todo = new Todo();
-          todo.item.title = req.body.title;
+  var title = req.body.title;
+
+          todo.item.title = title;
           todo.item.userid = req.body.userid;
           todo.item.location = req.body.location;
           todo.item.date = req.body.date;
@@ -14,7 +19,14 @@ router.post('/add', function(req, res, next) {
           todo.save(function(err) {
             if (err)
               throw err;
-            console.log("New todo item created!");
+            var date = new Date(req.body.date);
+            date.setMinutes(date.getMinutes() + 2);
+
+          var j = schedule.scheduleJob(date, function(title){
+            nodemailer(title,"2344");
+          }.bind(null,title));
+
+            console.log("New todo item created! for");
             res.send({success:true});
           });
 })
