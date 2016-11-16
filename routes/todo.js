@@ -1,7 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
-
+var nodemailer = require('../helpers/nodemailer');
 var Todo = require('../models/todos');
 
 router.post('/add', function(req, res, next) {
@@ -26,12 +26,12 @@ router.post('/all',function(req,res,next){
 })
 })
 
-router.post('/delete',function(req,res,next){
+router.get('/delete/:id',function(req,res,next){
 
-  Todo.find({'_id': req.body.id}, function (err, old) {
+  Todo.find({'_id': req.params.id}, function (err, old) {
   if (err) return handleError(err);
 
-    Todo.findOneAndUpdate({'_id': req.body.id},{$set:{'item.active':!old[0].item.active}},{new: true},function (err) {
+    Todo.findOneAndUpdate({'_id': req.params.id},{$set:{'item.active':!old[0].item.active}},{new: true},function (err) {
       if (err) return handleError(err);
       res.send({success:true});
     })
@@ -40,14 +40,14 @@ router.post('/delete',function(req,res,next){
 
 });
 
-router.post('/snooze',function(req,res,next){
+router.get('/snooze/:id',function(req,res,next){
 
-  Todo.find({'_id': req.body.id}, function (err, old) {
+  Todo.find({'_id': req.params.id}, function (err, old) {
   if (err) return handleError(err);
 
   var nextDay = old[0].item.date.setDate(old[0].item.date.getDate() + 1);
 
-    Todo.findOneAndUpdate({'_id': req.body.id},{$set:{'item.date':nextDay}},{new: true},function (err) {
+    Todo.findOneAndUpdate({'_id': req.params.id},{$set:{'item.date':nextDay}},{new: true},function (err) {
       if (err) return handleError(err);
       res.send({success:true});
     })
