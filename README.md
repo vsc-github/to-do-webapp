@@ -1,6 +1,7 @@
 # to-do-webapp
 
  REST API written in node.js, express, mongoose & mongodb for a simple to-do app that uses passport.js authentication. 
+ The user gets an automated e-mail 2 minutes before the due task where he can snooze or delete the item.
 
 * Make sure you've node & npm installed. Using ```node/npm --version```.
 * Run a monogo instance by typing ```mongod``` in the console
